@@ -11,11 +11,6 @@ const Authentication: React.FC = () => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   
-  const handleProceed = () => {
-    console.log("Proceeding to GPS capture");
-    navigate('/gps-capture');
-  };
-  
   const handleBack = () => {
     console.log("Going back to loan agreement");
     navigate('/loan-agreement');
@@ -39,7 +34,6 @@ const Authentication: React.FC = () => {
         <AuthFooter 
           logoUrl="https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/0a78363f011d5aef950b0e23bd3c32b40ad818ae?placeholderIfAbsent=true"
           onBack={handleBack}
-          onProceed={handleProceed}
         />
       </div>
     </div>
