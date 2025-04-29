@@ -29,11 +29,11 @@ const ESP: React.FC<ESPProps> = ({
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white flex flex-col min-h-[100svh]">
+    <div className="flex flex-col w-full min-h-[100svh]">
       <ESPHeader />
       <ESPProgressBar />
       <ESPSubHeader documentNumber={documentNumber} documentName={documentName} />
-      <main className="flex-1 overflow-y-auto flex items-center justify-center p-4 md:p-8">
+      <div className="flex-1 overflow-y-auto w-full bg-white flex items-center justify-center p-4 md:p-8">
         <div className="max-w-2xl w-full">
           <img
             src={documentImage}
@@ -41,7 +41,7 @@ const ESP: React.FC<ESPProps> = ({
             className="object-contain w-full max-h-[80vh] mx-auto"
           />
         </div>
-      </main>
+      </div>
       <ESPFooter onProceed={handleProceed} />
     </div>
   );

@@ -12,7 +12,7 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
   const isMobile = useIsMobile();
 
   return (
-    <div className="bg-white flex w-full flex-col items-center justify-center px-4 py-6 md:px-8 md:py-8">
+    <div className="w-full flex flex-col items-center justify-center px-4 py-6 md:px-8 md:py-8">
       <div className="rounded w-full max-w-2xl mx-auto">
         {previewImages.map((image, index) => (
           <img

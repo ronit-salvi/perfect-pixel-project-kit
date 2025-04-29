@@ -13,8 +13,8 @@ export const PreviewFooter: React.FC<PreviewFooterProps> = ({
   onProceed,
 }) => {
   return (
-    <footer className="mt-auto items-center border-t-[color:var(--Gray-200,#EAECF0)] bg-white flex min-h-[52px] w-full gap-2 text-sm text-white font-medium whitespace-nowrap leading-none px-4 py-1.5 border-t border-solid">
-      <div className="flex w-full max-w-3xl mx-auto justify-between items-center">
+    <footer className="flex w-full items-center border-t-[color:var(--Gray-200,#EAECF0)] bg-white min-h-[52px] border-t border-solid">
+      <div className="flex w-full justify-between items-center px-4 py-1.5">
         <img
           src={logoUrl}
           alt="Footer Logo"
@@ -33,7 +33,7 @@ export const PreviewFooter: React.FC<PreviewFooterProps> = ({
             onClick={onProceed}
             className="flex rounded-lg"
           >
-            <div className="shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] bg-[#7F56D9] gap-2 overflow-hidden px-3.5 py-2 rounded-lg">
+            <div className="shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] bg-[#7F56D9] gap-2 overflow-hidden px-3.5 py-2 rounded-lg text-white">
               Proceed
             </div>
           </button>

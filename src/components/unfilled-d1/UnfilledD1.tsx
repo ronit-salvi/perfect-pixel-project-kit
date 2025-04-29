@@ -25,7 +25,7 @@ const UnfilledD1: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-white flex flex-col min-h-[100svh]">
+    <div className="flex flex-col w-full min-h-[100svh]">
       <Header logoUrl="https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/4e587c6514340c105ae873476a950fb74240d938?placeholderIfAbsent=true" />
       <ProgressBar progress={1} total={5} />
       <SubHeader
@@ -33,9 +33,9 @@ const UnfilledD1: React.FC = () => {
         documentType="SanctionLetter"
         status="Sign Required"
       />
-      <main className="flex-1 overflow-y-auto max-w-3xl mx-auto w-full">
+      <div className="flex-1 overflow-y-auto w-full bg-white">
         <DocumentPreview previewImages={documentImages} />
-      </main>
+      </div>
       <Footer logoUrl="https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/0a78363f011d5aef950b0e23bd3c32b40ad818ae?placeholderIfAbsent=true" 
               onProceed={handleProceed} />
     </div>
