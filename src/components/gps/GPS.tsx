@@ -28,14 +28,14 @@ const GPS: React.FC = () => {
   };
 
   const handleSign = () => {
-    console.log("Document signed, proceeding to next step");
+    console.log("Document signed, proceeding to ESP capture");
     setIsDrawerOpen(false);
-    // Navigate to the next step after signing
-    navigate('/loan-agreement');
+    // Navigate to ESP page instead of loan agreement
+    navigate('/esp-capture');
   };
 
   return (
-    <div className="bg-gray-50 max-w-[480px] w-full overflow-hidden mx-auto">
+    <div className="bg-gray-50 max-w-[480px] w-full h-[812px] overflow-y-auto mx-auto">
       <div className="flex flex-col bg-white">
         <GPSHeader />
         <GPSProgressBar progress={4} total={5} />
