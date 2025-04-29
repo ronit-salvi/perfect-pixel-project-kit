@@ -1,5 +1,6 @@
 
 import React from "react";
+import { ArrowLeft } from "lucide-react";
 
 interface ESPSubHeaderProps {
   documentNumber?: string;
@@ -12,24 +13,20 @@ export const ESPSubHeader: React.FC<ESPSubHeaderProps> = ({
 }) => {
   return (
     <section className="flex overflow-hidden flex-col justify-center px-4 py-2 w-full bg-white border-t border-b border-solid border-b-[color:var(--Gray-200,#EAECF0)] border-t-[color:var(--Gray-200,#EAECF0)]">
-      <div className="flex gap-2 items-center w-full max-w-3xl mx-auto">
-        <button className="flex items-start w-7 rounded-lg">
-          <div className="flex overflow-hidden gap-1.5 justify-center items-center p-1.5 w-7 rounded-md shadow-sm">
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/2b82f329f08ba9eafef9fbd87969447330330611?placeholderIfAbsent=true"
-              alt="Navigation"
-              className="object-contain w-4 aspect-square"
-            />
-          </div>
-        </button>
+      <div className="flex gap-2 items-center w-full justify-between">
+        <div className="flex items-center gap-2">
+          <button className="flex items-start rounded-lg">
+            <div className="flex overflow-hidden gap-1.5 justify-center items-center p-1.5 w-7 rounded-md shadow-sm">
+              <ArrowLeft className="h-4 w-4" />
+            </div>
+          </button>
 
-        <span className="text-base font-medium text-gray-900">
-          ({documentNumber})
-        </span>
+          <span className="text-base font-medium text-gray-900">
+            ({documentNumber})
+          </span>
 
-        <div className="flex flex-1 gap-2 text-base">
-          <h1 className="font-medium text-gray-900">Aadhaar Signing</h1>
-          <p className="flex-1 gap-2 text-ellipsis text-slate-700 overflow-hidden">
+          <h1 className="font-medium text-base text-gray-900">Aadhaar Signing</h1>
+          <p className="text-base text-slate-700 overflow-hidden text-ellipsis">
             {documentName}
           </p>
         </div>
