@@ -1,3 +1,4 @@
+
 import React from "react";
 
 interface SubHeaderProps {
@@ -22,10 +23,16 @@ export const SubHeader: React.FC<SubHeaderProps> = ({
             {documentType}
           </div>
         </div>
-        <div className="bg-blend-normal self-stretch flex text-xs text-[#344054] font-medium text-center my-auto">
-          <div className="self-stretch bg-[#F2F4F7] px-2 py-0.5 rounded-2xl">
-            {status}
-          </div>
+        <div className="bg-blend-normal self-stretch flex text-xs font-medium text-center my-auto">
+          {status === "Sign Required" ? (
+            <div className="self-stretch px-3 py-1 bg-sky-50 text-blue-700 rounded-2xl">
+              {status}
+            </div>
+          ) : (
+            <div className="self-stretch bg-[#F2F4F7] px-2 py-0.5 text-[#344054] rounded-2xl">
+              {status}
+            </div>
+          )}
         </div>
       </div>
     </div>
