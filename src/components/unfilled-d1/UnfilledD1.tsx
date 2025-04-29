@@ -1,6 +1,7 @@
 
 "use client";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "./Header";
 import { ProgressBar } from "./ProgressBar";
 import { SubHeader } from "./SubHeader";
@@ -8,8 +9,11 @@ import { DocumentPreview } from "./DocumentPreview";
 import { Footer } from "./Footer";
 
 const UnfilledD1: React.FC = () => {
+  const navigate = useNavigate();
+
   const handleProceed = () => {
     console.log("Proceeding to next step");
+    navigate('/loan-agreement');
   };
 
   return (
