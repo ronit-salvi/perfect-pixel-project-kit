@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LoanAgreement from "./pages/LoanAgreement";
+import Authentication from "./pages/Authentication";
+import GPSCapture from "./pages/GPSCapture";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +21,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/loan-agreement" element={<LoanAgreement />} />
+          <Route path="/authentication" element={<Authentication />} />
+          <Route path="/gps-capture" element={<GPSCapture />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

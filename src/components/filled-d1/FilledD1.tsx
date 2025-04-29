@@ -11,8 +11,8 @@ const FilledD1: React.FC = () => {
   const navigate = useNavigate();
   
   const handleProceed = () => {
-    console.log("Proceeding to next step");
-    // Navigate to next page in the flow
+    console.log("Proceeding to authentication");
+    navigate('/authentication');
   };
   
   const handleBack = () => {
