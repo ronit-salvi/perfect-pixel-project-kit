@@ -21,7 +21,7 @@ export const DocumentList: React.FC<DocumentListProps> = ({ isFinal = false }) =
   ];
 
   return (
-    <div className="mt-6 w-full">
+    <div className="mt-6 w-full flex flex-col items-center">
       {documents.map((doc, index) => (
         <div key={doc.title} className={index > 0 ? "mt-3" : ""}>
           <DocumentCard {...doc} isFirst={index === 0} />
