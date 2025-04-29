@@ -5,9 +5,11 @@ import { AuthHeader } from "./AuthHeader";
 import { AuthProgressBar } from "./AuthProgressBar";
 import { AuthContent } from "./AuthContent";
 import { AuthFooter } from "./AuthFooter";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Authentication: React.FC = () => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   
   const handleProceed = () => {
     console.log("Proceeding to GPS capture");
@@ -20,13 +22,13 @@ const Authentication: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-50 max-w-[480px] w-full overflow-hidden mx-auto">
-      <div className="flex flex-col bg-white">
+    <div className="bg-gray-50 w-full mx-auto">
+      <div className="flex flex-col bg-white w-full max-w-3xl mx-auto min-h-[100svh]">
         <AuthHeader logoUrl="https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/96ae0dc7ef30a827bde15140af97c803bf655902?placeholderIfAbsent=true" />
         <AuthProgressBar progress={3} total={5} />
-        <div className="flex overflow-hidden flex-col justify-center self-end px-4 py-2 w-full text-lg font-medium leading-loose text-gray-900 bg-white border-t border-b border-solid border-b-[color:var(--Gray-200,#EAECF0)] border-t-[color:var(--Gray-200,#EAECF0)] min-h-11">
-          <div className="flex gap-2 items-center w-full">
-            <h1 className="flex-1 shrink gap-2 self-stretch my-auto w-full basis-0 min-w-60">
+        <div className="flex overflow-hidden flex-col justify-center px-4 py-2 w-full text-lg font-medium leading-loose text-gray-900 bg-white border-t border-b border-solid border-b-[color:var(--Gray-200,#EAECF0)] border-t-[color:var(--Gray-200,#EAECF0)] min-h-11">
+          <div className="flex gap-2 items-center w-full max-w-3xl mx-auto">
+            <h1 className="flex-1 gap-2 w-full">
               Authentication
             </h1>
           </div>

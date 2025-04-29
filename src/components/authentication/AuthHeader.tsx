@@ -8,9 +8,9 @@ interface AuthHeaderProps {
 
 export const AuthHeader: React.FC<AuthHeaderProps> = ({ logoUrl }) => {
   return (
-    <div className="min-h-[52px] w-full">
+    <div className="w-full">
       <div className="justify-center items-stretch border-b-[color:var(--Gray-200,#EAECF0)] bg-white flex w-full flex-col overflow-hidden flex-1 px-4 py-1 border-b border-solid">
-        <div className="flex w-full items-center gap-[40px_100px] justify-between">
+        <div className="flex w-full items-center gap-[40px_100px] justify-between max-w-3xl mx-auto">
           <img
             src={logoUrl}
             alt="Company Logo"
