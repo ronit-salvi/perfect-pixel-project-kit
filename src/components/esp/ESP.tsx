@@ -27,16 +27,16 @@ const ESP: React.FC<ESPProps> = ({
   };
 
   return (
-    <div className="bg-gray-50 max-w-[480px] w-full h-[812px] overflow-y-auto mx-auto">
-      <div className="flex flex-col bg-white h-full">
+    <div className="bg-gray-50 max-w-[480px] w-full h-[812px] mx-auto">
+      <div className="flex flex-col h-full bg-white">
         <ESPHeader />
         <ESPProgressBar />
         <ESPSubHeader documentNumber={documentNumber} documentName={documentName} />
-        <main className="flex flex-col flex-1 justify-center p-4 w-full">
+        <main className="flex-1 overflow-y-auto p-4">
           <img
             src={documentImage}
             alt="Document Preview"
-            className="object-contain flex-1 w-full aspect-[0.55]"
+            className="object-contain w-full aspect-[0.55]"
           />
         </main>
         <ESPFooter onProceed={handleProceed} />
