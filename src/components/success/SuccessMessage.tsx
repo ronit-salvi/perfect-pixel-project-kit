@@ -1,7 +1,11 @@
 
 import React from "react";
 
-export const SuccessMessage: React.FC = () => {
+interface SuccessMessageProps {
+  isFinal?: boolean;
+}
+
+export const SuccessMessage: React.FC<SuccessMessageProps> = ({ isFinal = false }) => {
   return (
     <div className="flex flex-col justify-center w-full">
       <div className="flex flex-col self-center max-w-full w-[311px]">
@@ -17,7 +21,7 @@ export const SuccessMessage: React.FC = () => {
             Signed Successfully
           </h1>
           <p className="mt-2 text-sm leading-none text-gray-500">
-            1/2 document signed successfully.{" "}
+            {isFinal ? "2/2 documents signed successfully." : "1/2 document signed successfully."}
           </p>
         </div>
       </div>

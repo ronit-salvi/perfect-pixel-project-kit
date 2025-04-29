@@ -2,7 +2,11 @@
 import React from "react";
 import { DocumentCard } from "./DocumentCard";
 
-export const DocumentList: React.FC = () => {
+interface DocumentListProps {
+  isFinal?: boolean;
+}
+
+export const DocumentList: React.FC<DocumentListProps> = ({ isFinal = false }) => {
   const documents = [
     {
       title: "Sanction Letter",
@@ -11,7 +15,7 @@ export const DocumentList: React.FC = () => {
     },
     {
       title: "Loan Agreement",
-      status: "pending" as const,
+      status: isFinal ? "signed" as const : "pending" as const,
       iconUrl: "https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/5c957fa91da6a12fa52e98c9dffc090c8df1faa8?placeholderIfAbsent=true",
     },
   ];

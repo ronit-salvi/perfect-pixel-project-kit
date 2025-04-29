@@ -2,12 +2,21 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export const SuccessFooter: React.FC = () => {
+interface SuccessFooterProps {
+  isFinal?: boolean;
+}
+
+export const SuccessFooter: React.FC<SuccessFooterProps> = ({ isFinal = false }) => {
   const navigate = useNavigate();
   
   const handleNext = () => {
-    // Navigate to home or next step in the flow
-    navigate('/');
+    if (isFinal) {
+      // Navigate to home when all documents are signed
+      navigate('/');
+    } else {
+      // Navigate to the next document signing page
+      navigate('/esp-loan-agreement');
+    }
   };
   
   return (

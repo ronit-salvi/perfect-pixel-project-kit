@@ -1,7 +1,15 @@
 
 import React from "react";
 
-export const ESPSubHeader: React.FC = () => {
+interface ESPSubHeaderProps {
+  documentNumber?: string;
+  documentName?: string;
+}
+
+export const ESPSubHeader: React.FC<ESPSubHeaderProps> = ({ 
+  documentNumber = "1/2", 
+  documentName = "Sanction Letter" 
+}) => {
   return (
     <section className="flex overflow-hidden flex-col justify-center px-4 py-2 w-full bg-white border-t border-b border-solid border-b-[color:var(--Gray-200,#EAECF0)] border-t-[color:var(--Gray-200,#EAECF0)]">
       <div className="flex gap-2 items-center w-full">
@@ -16,13 +24,13 @@ export const ESPSubHeader: React.FC = () => {
         </button>
 
         <span className="self-stretch my-auto text-base font-medium text-gray-900">
-          (1/3)
+          ({documentNumber})
         </span>
 
         <div className="flex flex-1 shrink gap-2 self-stretch my-auto text-base basis-0">
           <h1 className="my-auto font-medium text-gray-900">Aadhaar Signing</h1>
           <p className="flex-1 shrink gap-2 self-stretch h-full basis-0 text-ellipsis text-slate-700">
-            Sanction Letter
+            {documentName}
           </p>
         </div>
 
