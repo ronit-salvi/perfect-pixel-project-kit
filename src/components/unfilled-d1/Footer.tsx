@@ -1,3 +1,4 @@
+
 import React from "react";
 
 interface FooterProps {
@@ -7,7 +8,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ logoUrl, onProceed }) => {
   return (
-    <footer className="items-center border-t-[color:var(--Gray-200,#EAECF0)] bg-white flex min-h-[52px] w-full gap-2 text-sm text-white font-medium whitespace-nowrap leading-none px-4 py-1.5 border-t border-solid">
+    <footer className="mt-auto items-center border-t-[color:var(--Gray-200,#EAECF0)] bg-white flex min-h-[52px] w-full gap-2 text-sm text-white font-medium whitespace-nowrap leading-none px-4 py-1.5 border-t border-solid">
       <img
         src={logoUrl}
         alt="Footer Logo"

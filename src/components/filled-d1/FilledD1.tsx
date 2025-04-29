@@ -20,6 +20,11 @@ const FilledD1: React.FC = () => {
     navigate('/');
   };
 
+  // Create an array with 10 copies of the same image for scrolling
+  const documentImages = Array(10).fill(
+    "https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/45ecd45f8f0481c0f11090735756d0ae7641c02a?placeholderIfAbsent=true"
+  );
+
   return (
     <div className="bg-gray-50 max-w-[480px] w-full h-[812px] mx-auto">
       <div className="flex flex-col h-full bg-white">
@@ -27,7 +32,7 @@ const FilledD1: React.FC = () => {
         <ProgressBar progress={2} total={5} />
         <DocumentHeader title="Preview" documentType="Loan Agreement" status="Sign Required" />
         <main className="flex-1 overflow-y-auto">
-          <DocumentViewer imageUrl="https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/45ecd45f8f0481c0f11090735756d0ae7641c02a?placeholderIfAbsent=true" />
+          <DocumentViewer images={documentImages} />
         </main>
         <PreviewFooter 
           logoUrl="https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/0a78363f011d5aef950b0e23bd3c32b40ad818ae?placeholderIfAbsent=true"
