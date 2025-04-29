@@ -28,11 +28,11 @@ const FilledD1: React.FC = () => {
   );
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white flex flex-col min-h-[100svh]">
+    <div className="w-full bg-white flex flex-col min-h-[100svh]">
       <PreviewHeader logoUrl="https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/96ae0dc7ef30a827bde15140af97c803bf655902?placeholderIfAbsent=true" />
       <ProgressBar progress={2} total={5} />
       <DocumentHeader title="Preview" documentType="Loan Agreement" status="Sign Required" />
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto max-w-3xl mx-auto w-full">
         <DocumentViewer images={documentImages} />
       </main>
       <PreviewFooter 
