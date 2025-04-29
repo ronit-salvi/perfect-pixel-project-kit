@@ -13,7 +13,7 @@ export const DocumentPreview: React.FC<DocumentPreviewProps> = ({
 
   return (
     <div className="w-full flex flex-col items-center justify-center px-4 py-6 md:px-8 md:py-8">
-      <div className="rounded w-full max-w-2xl mx-auto">
+      <div className="rounded w-full max-w-2xl mx-auto h-[calc(100vh-240px)] overflow-y-auto">
         {previewImages.map((image, index) => (
           <img
             key={index}

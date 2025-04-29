@@ -33,8 +33,8 @@ const ESP: React.FC<ESPProps> = ({
       <ESPHeader />
       <ESPProgressBar />
       <ESPSubHeader documentNumber={documentNumber} documentName={documentName} />
-      <main className="flex-1 overflow-y-auto w-full flex items-center justify-center p-4 md:p-8 bg-white">
-        <div className="max-w-2xl w-full">
+      <main className="flex-1 w-full flex items-center justify-center p-4 md:p-8 bg-white">
+        <div className="max-w-2xl w-full h-[calc(100vh-240px)] overflow-y-auto">
           <img
             src={documentImage}
             alt="Document Preview"

@@ -11,7 +11,7 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ images }) => {
 
   return (
     <div className="w-full flex flex-col items-center justify-center px-4 py-6 md:px-8 md:py-8">
-      <div className="rounded w-full max-w-2xl mx-auto">
+      <div className="rounded w-full max-w-2xl mx-auto h-[calc(100vh-240px)] overflow-y-auto">
         {images.map((imageUrl, index) => (
           <img
             key={index}
