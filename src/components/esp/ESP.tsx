@@ -33,15 +33,15 @@ const ESP: React.FC<ESPProps> = ({
       <ESPHeader />
       <ESPProgressBar />
       <ESPSubHeader documentNumber={documentNumber} documentName={documentName} />
-      <div className="flex-1 overflow-y-auto w-full bg-white flex items-center justify-center p-4 md:p-8">
+      <main className="flex-1 overflow-y-auto w-full flex items-center justify-center p-4 md:p-8 bg-white">
         <div className="max-w-2xl w-full">
           <img
             src={documentImage}
             alt="Document Preview"
-            className="object-contain w-full max-h-[80vh] mx-auto"
+            className="object-contain w-full mx-auto"
           />
         </div>
-      </div>
+      </main>
       <ESPFooter onProceed={handleProceed} />
     </div>
   );

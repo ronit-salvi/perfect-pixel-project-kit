@@ -46,8 +46,8 @@ const GPS: React.FC = () => {
         </div>
       </header>
       <div className="w-full min-h-0 bg-gray-200 border border-gray-200 border-solid" />
-      <main className="flex-1 pt-6 w-full max-w-3xl mx-auto">
-        <div className="flex-1 px-4 w-full">
+      <main className="flex-1 overflow-y-auto pt-6 w-full max-w-3xl mx-auto">
+        <div className="px-4 w-full">
           <LocationContent />
         </div>
       </main>
