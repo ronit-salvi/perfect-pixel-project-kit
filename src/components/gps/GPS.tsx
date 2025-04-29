@@ -5,6 +5,8 @@ import { GPSHeader } from "./GPSHeader";
 import { GPSProgressBar } from "./GPSProgressBar";
 import { LocationContent } from "./LocationContent";
 import { GPSFooter } from "./GPSFooter";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import Consent from "../consent/Consent";
 
 const GPS: React.FC = () => {
   const navigate = useNavigate();
@@ -12,17 +14,24 @@ const GPS: React.FC = () => {
     query: {},
     path: "",
   }));
-
   const [deviceSize] = useState(() => "large");
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
   const handleProceed = () => {
-    console.log("Proceeding to next step");
-    // Navigate to next step
+    console.log("Proceeding to consent");
+    setIsDrawerOpen(true);
   };
   
   const handleBack = () => {
     console.log("Going back to authentication");
     navigate('/authentication');
+  };
+
+  const handleSign = () => {
+    console.log("Document signed, proceeding to next step");
+    setIsDrawerOpen(false);
+    // Navigate to the next step after signing
+    navigate('/loan-agreement');
   };
 
   return (
@@ -48,6 +57,12 @@ const GPS: React.FC = () => {
           onProceed={handleProceed} 
         />
       </div>
+
+      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+        <DrawerContent className="max-w-[480px] mx-auto">
+          <Consent onSign={handleSign} />
+        </DrawerContent>
+      </Drawer>
     </div>
   );
 };
