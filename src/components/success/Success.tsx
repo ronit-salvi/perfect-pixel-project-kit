@@ -4,12 +4,22 @@ import { SuccessHeader } from "./SuccessHeader";
 import { SuccessMessage } from "./SuccessMessage";
 import { DocumentList } from "./DocumentList";
 import { SuccessFooter } from "./SuccessFooter";
+import { useSigningJourney } from "@/contexts/SigningJourneyContext";
 
 interface SuccessProps {
   isFinal?: boolean;
 }
 
 const Success: React.FC<SuccessProps> = ({ isFinal = false }) => {
+  const { config, nextDocument } = useSigningJourney();
+  
+  // If not final, move to next document to prepare for next ESP
+  React.useEffect(() => {
+    if (!isFinal) {
+      nextDocument();
+    }
+  }, [isFinal, nextDocument]);
+  
   return (
     <div className="flex flex-col w-full min-h-[100svh] bg-white">
       <SuccessHeader />

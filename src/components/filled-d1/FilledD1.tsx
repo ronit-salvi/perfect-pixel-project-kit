@@ -1,25 +1,46 @@
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { PreviewHeader } from "./PreviewHeader";
 import { ProgressBar } from "./ProgressBar";
 import { DocumentHeader } from "./DocumentHeader";
 import { DocumentViewer } from "./DocumentViewer";
 import { PreviewFooter } from "./PreviewFooter";
-import { useNavigate } from "react-router-dom";
+import { useSigningJourney } from "@/contexts/SigningJourneyContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const FilledD1: React.FC = () => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const { config, nextDocument } = useSigningJourney();
+  const currentDocumentIndex = config.currentDocumentIndex;
+  const currentDocument = config.documents[currentDocumentIndex];
+  const totalDocuments = config.documents.length;
   
   const handleProceed = () => {
-    console.log("Proceeding to authentication");
-    navigate('/authentication');
+    console.log("Proceeding to next step");
+    
+    // Navigate to authentication if enabled, otherwise skip to GPS or ESP
+    if (config.autoSaveForSigner) {
+      navigate('/authentication');
+    } else if (config.gpsCapture) {
+      navigate('/gps-capture');
+    } else {
+      navigate('/esp-capture');
+    }
   };
   
   const handleBack = () => {
     console.log("Going back");
-    navigate('/');
+    
+    if (currentDocumentIndex > 0) {
+      // If not the first document, go back to previous document
+      nextDocument(); // This will need to be prevDocument in context
+      navigate('/loan-agreement');
+    } else {
+      // If first document, go back to home
+      navigate('/');
+    }
   };
 
   // Create an array with 10 copies of the same image for scrolling
@@ -27,11 +48,19 @@ const FilledD1: React.FC = () => {
     "https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/45ecd45f8f0481c0f11090735756d0ae7641c02a?placeholderIfAbsent=true"
   );
 
+  // Calculate progress
+  const progress = currentDocumentIndex + 1;
+  const total = totalDocuments + 4; // Documents + Auth + GPS + ESP + Success
+
   return (
     <div className="flex flex-col min-h-[100svh] w-full">
       <PreviewHeader logoUrl="https://cdn.builder.io/api/v1/image/assets/455f743bc1c9461cac1bab4c6df6f995/96ae0dc7ef30a827bde15140af97c803bf655902?placeholderIfAbsent=true" />
-      <ProgressBar progress={2} total={5} />
-      <DocumentHeader title="Preview" documentType="Loan Agreement" status="Sign Required" />
+      <ProgressBar progress={progress} total={total} />
+      <DocumentHeader 
+        title="Preview" 
+        documentType={currentDocument.name} 
+        status="Sign Required" 
+      />
       <div className="flex-1 overflow-y-auto w-full bg-white">
         <DocumentViewer images={documentImages} />
       </div>

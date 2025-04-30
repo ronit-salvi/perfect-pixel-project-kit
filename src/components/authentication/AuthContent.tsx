@@ -1,93 +1,116 @@
 
 import React, { useState } from "react";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { Badge } from "../filled-d1/Badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router-dom";
-import { Label } from "@/components/ui/label";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
-export const AuthContent: React.FC = () => {
-  const [otp, setOtp] = useState("");
+interface AuthContentProps {
+  onProceed?: () => void;
+}
+
+export const AuthContent: React.FC<AuthContentProps> = ({ onProceed }) => {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+  const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   
-  const handleSignIn = () => {
-    console.log("Signing in with OTP");
-    navigate('/gps-capture');
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("OTP Submitted:", otp.join(""));
+    if (onProceed) {
+      onProceed();
+    }
   };
   
+  const handleOtpChange = (index: number, value: string) => {
+    if (!/^\d*$/.test(value)) return;
+    
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+    
+    // Auto-focus to next input
+    if (value && index < 5) {
+      const nextInput = document.getElementById(`otp-${index + 1}`);
+      if (nextInput) nextInput.focus();
+    }
+  };
+  
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      const prevInput = document.getElementById(`otp-${index - 1}`);
+      if (prevInput) prevInput.focus();
+    }
+  };
+
   return (
-    <main className="bg-white flex w-full flex-col items-stretch justify-center p-4">
-      <div className="flex flex-col items-center justify-center w-full">
-        <div className="flex flex-col items-center justify-center w-full max-w-sm text-center">
-          <div className="mt-2 mb-8">
-            <Badge text="Authentication" />
-          </div>
-          
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Please confirm your identity</h2>
-          <p className="text-sm text-gray-600 mb-6">
-            We've sent a one-time password to verify your identity.
-          </p>
-          
-          <div className="mb-6 w-full">
-            <div className="flex flex-col space-y-2 mb-4">
-              <Label htmlFor="email" className="text-left text-sm font-medium text-gray-700">Email address / Phone number</Label>
-              <Input 
-                id="email"
-                type="text" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                placeholder="Enter your email or phone" 
-                className="w-full"
-              />
-            </div>
-            
-            <div className="text-left w-full mb-1">
-              <Label htmlFor="otp-input" className="text-sm font-medium text-gray-700">Enter OTP</Label>
-            </div>
-            
-            <InputOTP
-              id="otp-input"
-              maxLength={6}
-              value={otp}
-              onChange={setOtp}
-              className="flex justify-center gap-2 w-full mb-4"
-            >
-              <InputOTPGroup>
-                {Array.from({ length: 6 }).map((_, index) => (
-                  <InputOTPSlot key={index} index={index} />
+    <div className="px-4 py-6">
+      <div className="flex flex-col items-center space-y-6 mb-8">
+        <h1 className="text-xl font-medium text-center">
+          Please confirm your identity
+        </h1>
+        <p className="text-sm text-gray-500 text-center max-w-xs">
+          We've sent a one-time password (OTP) to your registered mobile number
+        </p>
+      </div>
+
+      <div className="space-y-6">
+        <div>
+          <label htmlFor="email-phone" className="block text-sm font-medium text-gray-700 mb-1">
+            Email/Phone
+          </label>
+          <Input
+            id="email-phone"
+            placeholder="Enter email or phone number"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full"
+          />
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Enter OTP
+              </label>
+              <div className="flex justify-between gap-2">
+                {otp.map((digit, index) => (
+                  <Input
+                    key={index}
+                    id={`otp-${index}`}
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={1}
+                    value={digit}
+                    onChange={(e) => handleOtpChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    className="w-12 h-12 text-center text-xl"
+                  />
                 ))}
-              </InputOTPGroup>
-            </InputOTP>
-            
-            <div className="mb-4 text-sm text-center">
-              <p className="text-gray-600">
-                Didn't receive OTP? <button className="text-[#7F56D9] font-medium">Resend OTP</button>
-              </p>
+              </div>
             </div>
-            
+
             <Button 
-              onClick={handleSignIn}
-              className="w-full bg-[#7F56D9] hover:bg-[#6941C6] text-white py-2 rounded-lg mb-4"
+              type="submit" 
+              className="w-full bg-violet-500 hover:bg-violet-600"
             >
               Sign In
             </Button>
             
-            <div className="text-center mb-6">
-              <button className="text-[#7F56D9] text-sm font-medium">
+            <div className="flex justify-center">
+              <button 
+                type="button"
+                className="text-violet-600 text-sm font-medium"
+              >
                 Sign in with Password
               </button>
             </div>
-            
-            <div className="text-xs text-gray-500 text-center">
-              <p>
-                By continuing, you agree to our <a href="#" className="text-[#7F56D9]">Terms of Service</a> and <a href="#" className="text-[#7F56D9]">Privacy Policy</a>
-              </p>
-            </div>
           </div>
+        </form>
+        
+        <div className="text-xs text-gray-500 text-center pt-6">
+          <p>By continuing, you agree to our</p>
+          <p><a href="#" className="underline">Terms of Service</a> and <a href="#" className="underline">Privacy Policy</a></p>
         </div>
       </div>
-    </main>
+    </div>
   );
 };

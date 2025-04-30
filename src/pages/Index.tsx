@@ -1,11 +1,14 @@
 
 import React from "react";
-import UnfilledD1 from "@/components/unfilled-d1/UnfilledD1";
+import { SigningJourneyProvider } from "@/contexts/SigningJourneyContext";
+import ConfigurationForm from "@/components/configuration/ConfigurationForm";
 
 const Index: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 w-full flex flex-col">
-      <UnfilledD1 />
+      <SigningJourneyProvider>
+        <ConfigurationForm />
+      </SigningJourneyProvider>
     </div>
   );
 };

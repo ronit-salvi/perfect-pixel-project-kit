@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useSigningJourney } from "@/contexts/SigningJourneyContext";
 
 interface SuccessFooterProps {
   isFinal?: boolean;
@@ -10,14 +11,16 @@ interface SuccessFooterProps {
 
 export const SuccessFooter: React.FC<SuccessFooterProps> = ({ isFinal = false }) => {
   const navigate = useNavigate();
+  const { config, resetJourney } = useSigningJourney();
   
   const handleNext = () => {
     if (isFinal) {
       // Navigate to home when all documents are signed
+      resetJourney();
       navigate('/');
     } else {
       // Navigate to the next document signing page
-      navigate('/esp-loan-agreement');
+      navigate('/esp-capture');
     }
   };
   
@@ -32,7 +35,7 @@ export const SuccessFooter: React.FC<SuccessFooterProps> = ({ isFinal = false })
         className="bg-violet-500 hover:bg-violet-600"
         onClick={handleNext}
       >
-        Next <ArrowRight className="ml-1 h-4 w-4" />
+        {isFinal ? "Home" : "Next"} <ArrowRight className="ml-1 h-4 w-4" />
       </Button>
     </footer>
   );

@@ -7,9 +7,14 @@ import { LocationContent } from "./LocationContent";
 import { GPSFooter } from "./GPSFooter";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import Consent from "../consent/Consent";
+import { useSigningJourney } from "@/contexts/SigningJourneyContext";
 
 const GPS: React.FC = () => {
   const navigate = useNavigate();
+  const { config } = useSigningJourney();
+  const currentDocumentIndex = config.currentDocumentIndex;
+  const totalDocuments = config.documents.length;
+  
   const [location] = useState(() => ({
     query: {},
     path: "",
@@ -24,20 +29,30 @@ const GPS: React.FC = () => {
   
   const handleBack = () => {
     console.log("Going back to authentication");
-    navigate('/authentication');
+    if (config.autoSaveForSigner) {
+      navigate('/authentication');
+    } else {
+      navigate('/loan-agreement');
+    }
   };
 
   const handleSign = () => {
     console.log("Document signed, proceeding to ESP capture");
     setIsDrawerOpen(false);
-    // Navigate to ESP page instead of loan agreement
     navigate('/esp-capture');
   };
+
+  // Calculate progress
+  const documentsProgress = currentDocumentIndex + 1;
+  const authProgress = config.autoSaveForSigner ? 1 : 0;
+  const gpsProgress = config.gpsCapture ? 1 : 0;
+  const progress = documentsProgress + authProgress + gpsProgress;
+  const total = totalDocuments + 4; // Documents + Auth + GPS + ESP + Success
 
   return (
     <div className="w-full bg-white flex flex-col min-h-[100svh]">
       <GPSHeader />
-      <GPSProgressBar progress={4} total={5} />
+      <GPSProgressBar progress={progress} total={total} />
       <header className="flex overflow-hidden flex-col justify-center px-4 py-2 w-full text-lg font-medium leading-loose text-gray-900 bg-white border-t border-b border-solid border-b-[color:var(--Gray-200,#EAECF0)] border-t-[color:var(--Gray-200,#EAECF0)] min-h-11">
         <div className="flex gap-2 items-center w-full">
           <h1 className="text-lg font-medium leading-loose text-gray-900">
