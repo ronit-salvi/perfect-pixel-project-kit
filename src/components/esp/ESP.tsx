@@ -12,6 +12,7 @@ interface ESPProps {
   documentName: string;
   onProceed: () => void;
   customDocumentImage?: string;
+  customNextRoute?: string; // Added this prop
 }
 
 const ESP: React.FC<ESPProps> = ({
