@@ -58,7 +58,7 @@ const ConfigurationForm: React.FC = () => {
     
     // Save config to context
     const newConfig = {
-      documents: documentNames.map(name => ({ name })),
+      documents: documentNames.map(name => ({ name, signed: false })),
       gpsCapture,
       autoSaveForSigner,
       eSignType: "Aadhaar" as const,
@@ -68,7 +68,7 @@ const ConfigurationForm: React.FC = () => {
     setConfig(newConfig);
     
     // Navigate to first document preview
-    navigate('/loan-agreement');
+    navigate('/document-preview/0');
     toast.success('Journey configured. Starting simulation...');
   };
   

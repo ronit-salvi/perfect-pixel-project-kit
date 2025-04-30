@@ -5,54 +5,39 @@ import { GPSHeader } from "./GPSHeader";
 import { GPSProgressBar } from "./GPSProgressBar";
 import { LocationContent } from "./LocationContent";
 import { GPSFooter } from "./GPSFooter";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import Consent from "../consent/Consent";
 import { useSigningJourney } from "@/contexts/SigningJourneyContext";
 
 const GPS: React.FC = () => {
   const navigate = useNavigate();
   const { config } = useSigningJourney();
-  const currentDocumentIndex = config.currentDocumentIndex;
-  const totalDocuments = config.documents.length;
-  
-  const [location] = useState(() => ({
-    query: {},
-    path: "",
-  }));
-  const [deviceSize] = useState(() => "large");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
   const handleProceed = () => {
-    console.log("Proceeding to consent");
-    setIsDrawerOpen(true);
+    navigate('/consent');
   };
   
   const handleBack = () => {
-    console.log("Going back to authentication");
     if (config.autoSaveForSigner) {
       navigate('/authentication');
     } else {
-      navigate('/loan-agreement');
+      // Go back to the last document preview
+      navigate(`/document-preview/${config.documents.length - 1}`);
     }
   };
 
-  const handleSign = () => {
-    console.log("Document signed, proceeding to ESP capture");
-    setIsDrawerOpen(false);
-    navigate('/esp-capture');
-  };
-
   // Calculate progress
-  const documentsProgress = currentDocumentIndex + 1;
-  const authProgress = config.autoSaveForSigner ? 1 : 0;
-  const gpsProgress = config.gpsCapture ? 1 : 0;
-  const progress = documentsProgress + authProgress + gpsProgress;
-  const total = totalDocuments + 4; // Documents + Auth + GPS + ESP + Success
+  // Each document has two steps: preview + sign
+  // Then we have auth (conditional), GPS (conditional), and final success
+  const conditionalSteps = (config.autoSaveForSigner ? 1 : 0) + (config.gpsCapture ? 1 : 0) + 1; // +1 for final success
+  const totalSteps = (config.documents.length * 2) + conditionalSteps;
+  
+  // Current progress is: completed document previews + authentication + GPS
+  const progress = config.documents.length + (config.autoSaveForSigner ? 1 : 0) + 1;
 
   return (
     <div className="w-full bg-white flex flex-col min-h-[100svh]">
       <GPSHeader />
-      <GPSProgressBar progress={progress} total={total} />
+      <GPSProgressBar progress={progress} total={totalSteps} />
       <header className="flex overflow-hidden flex-col justify-center px-4 py-2 w-full text-lg font-medium leading-loose text-gray-900 bg-white border-t border-b border-solid border-b-[color:var(--Gray-200,#EAECF0)] border-t-[color:var(--Gray-200,#EAECF0)] min-h-11">
         <div className="flex gap-2 items-center w-full">
           <h1 className="text-lg font-medium leading-loose text-gray-900">
@@ -70,12 +55,6 @@ const GPS: React.FC = () => {
         onBack={handleBack} 
         onProceed={handleProceed} 
       />
-
-      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent className="max-w-[480px] mx-auto">
-          <Consent onSign={handleSign} />
-        </DrawerContent>
-      </Drawer>
     </div>
   );
 };

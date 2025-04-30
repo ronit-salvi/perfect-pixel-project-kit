@@ -3,6 +3,7 @@ import React, { createContext, useState, useContext, ReactNode } from "react";
 
 export interface DocumentConfig {
   name: string;
+  signed: boolean;
 }
 
 export interface SigningJourneyConfig {
@@ -17,13 +18,15 @@ interface SigningJourneyContextType {
   config: SigningJourneyConfig;
   setConfig: (config: SigningJourneyConfig) => void;
   nextDocument: () => void;
+  prevDocument: () => void;
   resetJourney: () => void;
+  markCurrentDocumentSigned: () => void;
 }
 
 const defaultConfig: SigningJourneyConfig = {
   documents: [
-    { name: "Sanction Letter" },
-    { name: "Loan Agreement" },
+    { name: "Sanction Letter", signed: false },
+    { name: "Loan Agreement", signed: false },
   ],
   gpsCapture: true,
   autoSaveForSigner: true,
@@ -44,16 +47,47 @@ export const SigningJourneyProvider: React.FC<{ children: ReactNode }> = ({ chil
       });
     }
   };
+  
+  const prevDocument = () => {
+    if (config.currentDocumentIndex > 0) {
+      setConfig({
+        ...config,
+        currentDocumentIndex: config.currentDocumentIndex - 1,
+      });
+    }
+  };
+  
+  const markCurrentDocumentSigned = () => {
+    const updatedDocuments = [...config.documents];
+    updatedDocuments[config.currentDocumentIndex] = {
+      ...updatedDocuments[config.currentDocumentIndex],
+      signed: true
+    };
+    
+    setConfig({
+      ...config,
+      documents: updatedDocuments
+    });
+  };
 
   const resetJourney = () => {
     setConfig({
       ...defaultConfig,
-      documents: defaultConfig.documents,
+      documents: defaultConfig.documents.map(doc => ({ ...doc, signed: false })),
     });
   };
 
   return (
-    <SigningJourneyContext.Provider value={{ config, setConfig, nextDocument, resetJourney }}>
+    <SigningJourneyContext.Provider 
+      value={{ 
+        config, 
+        setConfig, 
+        nextDocument, 
+        prevDocument,
+        resetJourney,
+        markCurrentDocumentSigned 
+      }}
+    >
       {children}
     </SigningJourneyContext.Provider>
   );

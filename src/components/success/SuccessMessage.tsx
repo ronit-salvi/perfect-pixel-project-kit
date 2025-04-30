@@ -1,11 +1,19 @@
 
 import React from "react";
+import { useSigningJourney } from "@/contexts/SigningJourneyContext";
 
 interface SuccessMessageProps {
   isFinal?: boolean;
+  documentIndex: number;
 }
 
-export const SuccessMessage: React.FC<SuccessMessageProps> = ({ isFinal = false }) => {
+export const SuccessMessage: React.FC<SuccessMessageProps> = ({ 
+  isFinal = false,
+  documentIndex
+}) => {
+  const { config } = useSigningJourney();
+  const totalDocuments = config.documents.length;
+  
   return (
     <div className="flex flex-col justify-center w-full">
       <div className="flex flex-col self-center max-w-full w-[311px]">
@@ -21,7 +29,10 @@ export const SuccessMessage: React.FC<SuccessMessageProps> = ({ isFinal = false 
             Signed Successfully
           </h1>
           <p className="mt-2 text-sm leading-none text-gray-500">
-            {isFinal ? "2/2 documents signed successfully." : "1/2 document signed successfully."}
+            {isFinal 
+              ? `${totalDocuments}/${totalDocuments} documents signed successfully.` 
+              : `${documentIndex + 1}/${totalDocuments} document${documentIndex > 0 ? 's' : ''} signed successfully.`
+            }
           </p>
         </div>
       </div>

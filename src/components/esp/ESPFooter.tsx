@@ -1,22 +1,11 @@
 
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 interface ESPFooterProps {
-  onProceed?: () => void;
+  onProceed: () => void;
 }
 
 export const ESPFooter: React.FC<ESPFooterProps> = ({ onProceed }) => {
-  const navigate = useNavigate();
-  
-  const handleProceed = () => {
-    if (onProceed) {
-      onProceed();
-    } else {
-      navigate('/signed-success');
-    }
-  };
-  
   return (
     <footer className="flex w-full items-center bg-white border-t border-solid border-t-[color:var(--Gray-200,#EAECF0)] min-h-[52px]">
       <div className="flex justify-between items-center w-full px-4 py-1.5">
@@ -27,7 +16,7 @@ export const ESPFooter: React.FC<ESPFooterProps> = ({ onProceed }) => {
         />
         <button 
           className="flex items-start text-white rounded-lg"
-          onClick={handleProceed}
+          onClick={onProceed}
         >
           <div className="overflow-hidden gap-2 px-4 py-2.5 bg-violet-500 rounded-lg shadow-sm">
             Proceed

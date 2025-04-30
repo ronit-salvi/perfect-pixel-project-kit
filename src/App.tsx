@@ -7,13 +7,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SigningJourneyProvider } from "./contexts/SigningJourneyContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import LoanAgreement from "./pages/LoanAgreement";
 import Authentication from "./pages/Authentication";
 import GPSCapture from "./pages/GPSCapture";
-import ESPPage from "./pages/ESPPage";
+import ConsentPage from "./pages/ConsentPage";
+import DocumentPreviewPage from "./pages/DocumentPreviewPage";
+import ESPSignPage from "./pages/ESPSignPage";
 import SuccessPage from "./pages/SuccessPage";
-import ESPLoanAgreementPage from "./pages/ESPLoanAgreementPage";
-import FinalSuccessPage from "./pages/FinalSuccessPage";
 
 const queryClient = new QueryClient();
 
@@ -26,13 +25,12 @@ const App = () => (
         <SigningJourneyProvider>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/loan-agreement" element={<LoanAgreement />} />
+            <Route path="/document-preview/:documentIndex" element={<DocumentPreviewPage />} />
             <Route path="/authentication" element={<Authentication />} />
             <Route path="/gps-capture" element={<GPSCapture />} />
-            <Route path="/esp-capture" element={<ESPPage />} />
-            <Route path="/signed-success" element={<SuccessPage />} />
-            <Route path="/esp-loan-agreement" element={<ESPLoanAgreementPage />} />
-            <Route path="/final-success" element={<FinalSuccessPage />} />
+            <Route path="/consent" element={<ConsentPage />} />
+            <Route path="/esp-sign/:documentIndex" element={<ESPSignPage />} />
+            <Route path="/success/:documentIndex" element={<SuccessPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
