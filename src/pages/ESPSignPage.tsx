@@ -23,7 +23,7 @@ const ESPSignPage: React.FC = () => {
   const documentNumber = `${currentIndex + 1}/${config.documents.length}`;
   
   // Get current document name
-  const documentName = config.documents[currentIndex].name;
+  const documentName = config.documents[currentIndex]?.name || "Document";
   
   return (
     <div className="min-h-screen bg-gray-50">

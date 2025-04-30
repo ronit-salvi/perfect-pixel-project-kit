@@ -31,8 +31,9 @@ const GPS: React.FC = () => {
   const conditionalSteps = (config.autoSaveForSigner ? 1 : 0) + (config.gpsCapture ? 1 : 0) + 1; // +1 for final success
   const totalSteps = (config.documents.length * 2) + conditionalSteps;
   
-  // Current progress is: completed document previews + authentication + GPS
-  const progress = config.documents.length + (config.autoSaveForSigner ? 1 : 0) + 1;
+  // Current progress is: completed document previews + authentication (if enabled) + GPS
+  const authSteps = config.autoSaveForSigner ? 1 : 0;
+  const progress = config.documents.length + authSteps + 1;
 
   return (
     <div className="w-full bg-white flex flex-col min-h-[100svh]">
