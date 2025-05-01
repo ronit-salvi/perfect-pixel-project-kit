@@ -12,6 +12,7 @@ interface ESPProps {
   documentName: string;
   onProceed: () => void;
   customDocumentImage?: string;
+  customNextRoute?: string; // Added this prop
 }
 
 const ESP: React.FC<ESPProps> = ({
@@ -32,11 +33,13 @@ const ESP: React.FC<ESPProps> = ({
   // Parse document number to get current index
   const currentDocIndex = parseInt(documentNumber.split('/')[0]) - 1;
   
-  // Calculate progress correctly based on configuration
+  // Current progress is: completed documents (preview + sign) + current document preview + ESP
+  // For each document: preview (1) + ESP (1) = 2 steps
+  // For document index 0: (0 * 2) + 1 (preview) + 1 (auth/GPS) + 1 (ESP) = 3
+  // For document index 1: (1 * 2) + 1 (preview) + 1 (auth/GPS) + 1 (ESP) = 5
   const completedDocuments = currentDocIndex > 0 ? currentDocIndex : 0;
-  const authStep = config.autoSaveForSigner && completedDocuments === config.documents.length - 1 ? 1 : 0;
-  const gpsStep = config.gpsCapture && completedDocuments === config.documents.length - 1 ? 1 : 0;
-  const progress = (completedDocuments * 2) + 1 + authStep + gpsStep + 1;
+  const conditionalProgress = (config.autoSaveForSigner ? 1 : 0) + (config.gpsCapture ? 1 : 0);
+  const progress = (completedDocuments * 2) + 1 + conditionalProgress + 1;
 
   return (
     <div className="flex flex-col w-full min-h-[100svh]">

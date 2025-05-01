@@ -13,7 +13,6 @@ import ConsentPage from "./pages/ConsentPage";
 import DocumentPreviewPage from "./pages/DocumentPreviewPage";
 import ESPSignPage from "./pages/ESPSignPage";
 import SuccessPage from "./pages/SuccessPage";
-import FinalSuccessPage from "./pages/FinalSuccessPage";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +31,6 @@ const App = () => (
             <Route path="/consent" element={<ConsentPage />} />
             <Route path="/esp-sign/:documentIndex" element={<ESPSignPage />} />
             <Route path="/success/:documentIndex" element={<SuccessPage />} />
-            <Route path="/final-success" element={<FinalSuccessPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -14,8 +14,8 @@ const Authentication: React.FC = () => {
   const { config } = useSigningJourney();
   
   const handleBack = () => {
-    // Go back to the last document preview
-    navigate(`/document-preview/${config.documents.length - 1}`);
+    console.log("Going back to loan agreement");
+    navigate('/document-preview/0');
   };
   
   const handleProceed = () => {

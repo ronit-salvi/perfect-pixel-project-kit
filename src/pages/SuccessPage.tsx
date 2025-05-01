@@ -23,8 +23,8 @@ const SuccessPage: React.FC = () => {
       // If this was the last document, go to home
       navigate('/');
     } else {
-      // Otherwise go to the next document preview
-      navigate(`/document-preview/${currentIndex + 1}`);
+      // Otherwise go to the next ESP page
+      navigate(`/esp-sign/${currentIndex + 1}`);
     }
   };
   
